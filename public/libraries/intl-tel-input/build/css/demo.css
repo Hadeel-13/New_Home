@@ -1,0 +1,42 @@
+pre {
+	margin: 0 !important;
+	display: inline-block;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	background: none;
+}
+input[disabled],
+button[disabled] {
+	background-color: #eee;
+}
+::-webkit-input-placeholder {
+	color: #bbb;
+}
+::-moz-placeholder {
+	/* Firefox 19+ */
+	color: #bbb;
+	opacity: 1;
+}
+:-ms-input-placeholder {
+	color: #bbb;
+}
+#result {
+	margin-bottom: 100px;
+}
+#error-msg {
+	color: #842029;
+}
+#valid-msg {
+	color: #00c900;
+}
+input.error {
+	border: 1px solid #f5c2c7;
+}
+.hide {
+	display: none;
+}

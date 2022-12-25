@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <title>Google Maps</title>
+    <link rel="stylesheet" href="public/libraries/bootstrap-5.1.3-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="public/libraries/bootstrap-5.1.3-dist/css/colors.css" />
+    <link rel="stylesheet" href="public/libraries/fontawesome-free-6.1.1-web/css/all.min.css" />
+    <style>
+        #map {
+            height: 450px;
+            width: 100%;
+            border: 1px solid yellowgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My First Google Map</h1>
+    <div id="map"></div>
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(
+                document.getElementById('map'), {
+                center: { lat: 36.20525, lng: 37.15895 },
+                zoom: 8
+            });
+            var marker = new google.maps.Marker({ position: { lat: 36.20525, lng: 37.15895 }, map: map });
+        }
+    </script>
+    <script>
+        marker = new google.maps.Marker({
+            icon: {
+                path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+                strokeColor: "#FFF",
+                fillColor: "#a501a5",
+                fillOpacity: 0.9,
+                strokeWeight: 0,
+                rotation: 0,
+                scale: 2,
+                anchor: new google.maps.Point(15, 30),
+                label: {
+                    text: 'Label text',
+                    fontFamily: "system-ui,-apple-system"
+                }
+            },
+            title: "موقع عقارك",
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            position: new google.maps.LatLng(35.08317095349495, 38.34076870804504)
+        });
+        // The following example creates five accessible and
+        // focusable markers.
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                scaleControl: true,
+
+                zoom: 12,
+                center: { lat: 36.18470978127759, lng: 37.121107464539456 },
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: true,
+                streetViewControl: false,
+                rotateControl: true,
+                fullscreenControl: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            const marker1 = new google.maps.Marker({
+                icon: {
+                    // path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+                    strokeColor: "#FFF",
+                    fillColor: "#a501a5",
+                    fillOpacity: 0.9,
+                    strokeWeight: 0,
+                    rotation: 0,
+                    scale: 2,
+                    // anchor: new google.maps.Point(15, 30),
+                    label: {
+                        text: 'Label text',
+                        fontFamily: "system-ui,-apple-system"
+                    }
+                },
+                position: { lat: 36.22183745876341, lng: 37.112462811391026 },
+                map,
+                title: `2`,
+                // label: `${i + 1}`,
+                // optimized: false,
+            });
+            const infoWindow1 = new google.maps.InfoWindow({
+                content: '<img src="public/Images/properties/los-angeles-winter-2016-410x270.jpg" alt="">'
+            });
+            // Add a click listener for each marker, and set up the info window.
+            marker1.addListener("click", () => {
+                // infoWindow.close();
+                // infoWindow.setContent(marker1.getTitle());
+                infoWindow1.open(marker1.getMap(), marker1);
+            });
+            // Set LatLng and title text for the markers. The first marker (Boynton Pass)
+            // receives the initial focus when tab is pressed. Use arrow keys to
+            // move between markers; press tab again to cycle through the map controls.
+            const tourStops = [
+                [{ lat: 36.18470978127759, lng: 37.121107464539456 }, "صلاح الدين", '<img src="public/Images/properties/los-angeles-winter-2016-410x270.jpg" width="200" alt=""><br><h3><a class="text-end" href="#"><i class="fa-solid fa-eye text-muted"></i>&nbsp;عرض المنشور</a></h3>'],
+                [{ lat: 36.19212675941669, lng: 37.12758779790006 }, "سيف الدولة", '<img src="public/Images/properties/los-angeles-winter-2016-410x270.jpg" alt="">'],
+                [{ lat: 36.17734151203305, lng: 37.09904117617582 }, "الحمدانية", '<img src="public/Images/properties/los-angeles-winter-2016-410x270.jpg" alt="">'],
+                [{ lat: 36.20312046100798, lng: 37.11540800173195 }, "الفرقان", '<img src="public/Images/properties/los-angeles-winter-2016-410x270.jpg" alt="">'],
+                [{ lat: 36.19935190634902, lng: 37.096878518176545 }, "حلب الجديدة", '<img src="public/Images/properties/los-angeles-winter-2016-410x270.jpg" alt="">'],
+            ];
+            // Create an info window to share between markers.
+
+            // Create the markers.
+            tourStops.forEach(([position, title, content], i) => {
+                const marker = new google.maps.Marker({
+                    icon: {
+                        path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+                        strokeColor: "#FFF",
+                        fillColor: "#a501a5",
+                        fillOpacity: 0.9,
+                        strokeWeight: 0,
+                        rotation: 0,
+                        scale: 2,
+                        // anchor: new google.maps.Point(15, 30),
+                        label: {
+                            text: 'Label text',
+                            fontFamily: "system-ui,-apple-system"
+                        }
+                    },
+                    position,
+                    map,
+                    title: `${i + 1}. ${title}`,
+                    label: `${i + 1}`,
+                    optimized: false,
+                });
+                const infoWindow = new google.maps.InfoWindow();
+
+                // Add a click listener for each marker, and set up the info window.
+                marker.addListener("click", () => {
+                    infoWindow.close();
+                    infoWindow.setContent(content);
+                    infoWindow.open(marker.getMap(), marker);
+                });
+            });
+        }
+        window.initMap = initMap;
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxRuFn9Ny7G-z-EmWCKnXCHK7uyfVvvT0&callback=initMap"
+        async defer>
+        </script>
+</body>
+
+</html>
