@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\EmployeeInfo;
+use App\Models\Agent;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -23,18 +23,14 @@ class AdminController extends Controller
     }
     public function show_agents()
     {
-         $agents=EmployeeInfo::paginate(6);
+         $agents=Agent::paginate(6);
         return view('dashboard.admin_agents',compact('agents'));
     }
-    public function show_users()
-    {
-        $users=User::paginate(10);
-        return view('dashboard.show_users',compact('users'));
-    }
+   
     //------تابع اظهار رسائل المستخدمين-------
     public function show_messages()
     {
-        $messages=Message::orderby('created_at')->paginate(5);
+        $messages=Message::orderby('created_at','desc')->paginate(5);
         return view('dashboard.messages',compact('messages'));
     }
   public function index(Request $request)  

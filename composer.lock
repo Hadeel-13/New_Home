@@ -4,8 +4,67 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7edafad57dba8dbc04e37d30fad13ec0",
+    "content-hash": "a008e1119ba821a5becfe5fc86e8f289",
     "packages": [
+        {
+            "name": "amranidev/laracombee",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amranidev/laracombee.git",
+                "reference": "59b296e61b80aa79c5549d6ee0c1a6b536042e80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amranidev/laracombee/zipball/59b296e61b80aa79c5549d6ee0c1a6b536042e80",
+                "reference": "59b296e61b80aa79c5549d6ee0c1a6b536042e80",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.4",
+                "recombee/php-api-client": "^4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.6"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Amranidev\\Laracombee\\Providers\\LaracombeeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Amranidev\\Laracombee\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Houssain Amrani",
+                    "email": "amranidev@gmail.com"
+                }
+            ],
+            "description": "Recommendation system for laravel",
+            "keywords": [
+                "laravel",
+                "laravel and recombee",
+                "laravel with recombee",
+                "php",
+                "recombee",
+                "recommendation system"
+            ],
+            "support": {
+                "issues": "https://github.com/amranidev/laracombee/issues",
+                "source": "https://github.com/amranidev/laracombee"
+            },
+            "time": "2022-08-16T23:06:51+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.9.3",
@@ -3127,6 +3186,52 @@
                 }
             ],
             "time": "2022-03-27T21:42:02+00:00"
+        },
+        {
+            "name": "recombee/php-api-client",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/recombee/php-api-client.git",
+                "reference": "03a4762cc17fcc193b136a40c53d10da59887413"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/recombee/php-api-client/zipball/03a4762cc17fcc193b136a40c53d10da59887413",
+                "reference": "03a4762cc17fcc193b136a40c53d10da59887413",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0.0 || ^7.0.0",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.*",
+                "phpunit/phpunit": "^9.2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Recombee\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ondřej Fiedler",
+                    "email": "ondrej.fiedler@recombee.com"
+                }
+            ],
+            "description": "PHP client for easy use of the Recombee recommendation API.",
+            "homepage": "https://recombee.com",
+            "support": {
+                "issues": "https://github.com/recombee/php-api-client/issues",
+                "source": "https://github.com/recombee/php-api-client/tree/v4.0.0"
+            },
+            "time": "2022-04-20T14:11:36+00:00"
         },
         {
             "name": "symfony/console",

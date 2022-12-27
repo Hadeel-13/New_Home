@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Saved_Post;
+use App\Models\Savedpost;
 class SavedPostController extends Controller
 {
     /**
@@ -13,7 +13,7 @@ class SavedPostController extends Controller
      */
     public function index()
     {
-        $Saved_Posts = Saved_Post::latest()->paginate(5);
+        $Saved_Posts = Savedpost::latest()->paginate(5);
       
         return view('Saved_Posts.index',compact('Saved_Posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -95,11 +95,12 @@ class SavedPostController extends Controller
      * @param  \App\Models\Saved_Post  $Saved_Post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Saved_Post $Saved_Post)
+    public function destroy(SavedPost $Saved_Post)
     {
         $Saved_Post->delete();
        
         return redirect()->route('Saved_Posts.index')
                         ->with('success','Saved_Post deleted successfully');
     }
+
 }

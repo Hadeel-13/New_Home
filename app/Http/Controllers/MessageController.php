@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -14,10 +15,7 @@ class MessageController extends Controller
      */
 
   
-    public function index()
-    {
-        return view('contact');
-    }
+   
 
     /**
      * Show the form for creating a new resource.
@@ -35,23 +33,7 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'content' => 'required',
-        ]);
-
-        $message = new Message;
-        $message->name = $request->name;
-        $message->email = $request->email;
-        $message->phone = $request->phone;
-        $message->content = $request->content;
-        $message->save();
-        return response()->json(['success' => 'تم إرسال رسالتك بنجاح']);
-        // ->with('success','Message created successfully.');
-    }
+   
 
     /**
      * Display the specified resource.

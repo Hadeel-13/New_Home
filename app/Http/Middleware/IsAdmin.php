@@ -15,10 +15,10 @@ class IsAdmin
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {if(auth()->user()->role==1)
+    {if(auth()->user()->role==0)
         {
         return $next($request);
         }
-        return redirect('home');
+        return redirect('/');
     }
 }

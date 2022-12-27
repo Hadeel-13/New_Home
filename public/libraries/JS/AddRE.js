@@ -299,7 +299,6 @@ function nextPrev(n) {
     if (n == 1 && !validateForm()) return false;
     console.log(currentActive);
     // Hide the current tab:
-
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
     currentTab = currentTab + n;
@@ -346,11 +345,17 @@ function validateForm() {
         valid = validateCheckDirection();
         valid &= validateNumber();
     }
+    //FIXME:
     if (currentActive == 3) {
         valid = validateNumberofImages();
         valid &= !document
             .getElementById("youtubeLinkInput")
             .classList.contains("alert-danger");
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className +=
+                " finish";
+        }
+        return valid;
     }
     if (currentActive == 4) {
         // document.getElementById("prevBtn").classList.add("d-none");
@@ -358,6 +363,7 @@ function validateForm() {
         document.getElementById("phone").value =
             document.querySelector(".iti__selected-dial-code").textContent +
             document.getElementById("phone").value;
+
         // console.log(document.getElementById("phone").value);
         valid = calculateFeaturesIn();
         valid &= validateLatLng();
@@ -394,6 +400,13 @@ function validateForm() {
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className +=
             " finish";
+        if (
+            currentActive == 4 &&
+            document.getElementById("youtubeLinkInput").value != ""
+        ) {
+            document.getElementById("youtubeLinkInput").value =
+                "https://www.youtube.com/embed/" + match[7];
+        }
     }
     return valid; // return the valid status
 }
@@ -477,10 +490,10 @@ function changeCenterAndMarker() {
         });
         return true;
     }
-    document
-        .getElementById("invalid-feedback-Internet")
-        .classList.remove("d-none");
-    return false;
+    // document
+    //     .getElementById("invalid-feedback-Internet")
+    //     .classList.remove("d-none");
+    return true;
 }
 
 function validateCheckDirection() {
@@ -554,9 +567,11 @@ function validateNumber() {
     ) {
         return false;
     }
+    //FIXME:
     if (
         (document.getElementById("builtYearIn").value < 1900 ||
-            document.getElementById("builtYearIn").value > 2023) &&
+            document.getElementById("builtYearIn").value >
+                date.getFullYear()) &&
         document.getElementById("builtYearIn").value != ""
     ) {
         return false;
@@ -700,11 +715,12 @@ document.getElementById("PriceInMort").onblur = function () {
         document.getElementById("PriceInMort").classList.remove("alert-danger");
     }
 };
+// FIXME:
 document.getElementById("builtYearIn").onblur = function () {
     if (
         (document.getElementById("builtYearIn").value < 1900 ||
             document.getElementById("builtYearIn").value >
-                date.getFullYear() + 1) &&
+                date.getFullYear()) &&
         document.getElementById("builtYearIn").value != ""
     ) {
         document
@@ -775,6 +791,8 @@ document.getElementById("youtubeLinkInput").onchange = function () {
     document.getElementById("placeholder_YTVideo").classList.remove("d-none");
     document.getElementById("YTVideo").classList.add("d-none");
 };
+// TODO:
+let match;
 document.getElementById("youtubeLinkInput").onblur = function () {
     document
         .getElementById("youtubeLinkInput")
@@ -788,7 +806,7 @@ document.getElementById("youtubeLinkInput").onblur = function () {
         )
     ) {
         // var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/i;
-        var match = document
+        match = document
             .getElementById("youtubeLinkInput")
             .value.match(
                 /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
@@ -819,12 +837,19 @@ document.getElementById("youtubeLinkInput").onblur = function () {
             return;
         }
     }
-    document.getElementById("placeholder_YTVideo").classList.remove("d-none");
-    document.getElementById("YTVideo").classList.add("d-none");
-    document
-        .getElementById("invalid-feedback-youtubeLink")
-        .classList.remove("d-none");
-    document.getElementById("youtubeLinkInput").classList.add("alert-danger");
+    // FIXME:
+    if (document.getElementById("youtubeLinkInput").value != "") {
+        document
+            .getElementById("placeholder_YTVideo")
+            .classList.remove("d-none");
+        document.getElementById("YTVideo").classList.add("d-none");
+        document
+            .getElementById("invalid-feedback-youtubeLink")
+            .classList.remove("d-none");
+        document
+            .getElementById("youtubeLinkInput")
+            .classList.add("alert-danger");
+    }
 };
 
 function fixStepIndicator(n) {
@@ -873,7 +898,6 @@ function update() {
 //Script Images
 
 var images = [];
-
 function image_select() {
     let alert_content = "";
     var image = document.getElementById("image").files;
@@ -1079,45 +1103,8 @@ function initMap() {
     // google.maps.event.addListener(marker, 'dragstart', function (evt) {
     // 	map.setCenter(marker.getPosition());
     // 	document.getElementById('current').innerHTML = '<p>Currently dragging marker...</p>';
-    // });btn btn-purple mb-2 py-2 px-4
+    // });
     infoWindow = new google.maps.InfoWindow();
-    const locationButton = document.createElement("button");
-    locationButton.textContent = "الانتقال إلى موقعك الحالي";
-    locationButton.style.fontFamily = "system-ui,-apple-system";
-    locationButton.classList.add(
-        "btn",
-        "bg-purple",
-        "text-white",
-        "btn-purple",
-        "py-2",
-        "px-3",
-        "mt-2",
-        "ms-2"
-    );
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-    locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent("Location found.");
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                },
-                () => {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                }
-            );
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
-    });
 }
 
 function toggleBounce() {
@@ -1128,15 +1115,15 @@ function toggleBounce() {
     }
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(
-        browserHasGeolocation
-            ? "خطأ: فشلت خدمة تحديد الموقع الجغرافي"
-            : "خطأ: متصفحك لا يدعم تحديد الموقع الجغرافي"
-    );
-    infoWindow.open(map);
-}
+// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+//     infoWindow.setPosition(pos);
+//     infoWindow.setContent(
+//         browserHasGeolocation
+//             ? "خطأ: فشلت خدمة تحديد الموقع الجغرافي"
+//             : "خطأ: متصفحك لا يدعم تحديد الموقع الجغرافي"
+//     );
+//     infoWindow.open(map);
+// }
 window.initMap = initMap;
 // placeholder Script
 let placeholders = document.querySelectorAll(".placeholder");
@@ -1148,3 +1135,40 @@ window.onload = function () {
     document.getElementById("nextBtn").classList.remove("disabled");
     document.getElementById("placeholder_YTVideo").classList.add("placeholder");
 };
+// const locationButton = document.createElement("button");
+//     locationButton.textContent = "الانتقال إلى موقعك الحالي";
+//     locationButton.style.fontFamily = "system-ui,-apple-system";
+//     locationButton.classList.add(
+//         "btn",
+//         "bg-purple",
+//         "text-white",
+//         "btn-purple",
+//         "py-2",
+//         "px-3",
+//         "mt-2",
+//         "ms-2"
+//     );
+//     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+//     locationButton.addEventListener("click", () => {
+//         // Try HTML5 geolocation.
+//         if (navigator.geolocation) {
+//             navigator.geolocation.getCurrentPosition(
+//                 (position) => {
+//                     const pos = {
+//                         lat: position.coords.latitude,
+//                         lng: position.coords.longitude,
+//                     };
+//                     infoWindow.setPosition(pos);
+//                     infoWindow.setContent("Location found.");
+//                     infoWindow.open(map);
+//                     map.setCenter(pos);
+//                 },
+//                 () => {
+//                     handleLocationError(true, infoWindow, map.getCenter());
+//                 }
+//             );
+//         } else {
+//             // Browser doesn't support Geolocation
+//             handleLocationError(false, infoWindow, map.getCenter());
+//         }
+//     });

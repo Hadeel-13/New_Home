@@ -13,6 +13,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // Save Comment
+function save_comment(Request $request){
+    $data=new \App\Models\Comment;
+    $data->post_id=$request->post_id;
+    $data->user_id=1;
+    $data->comment=$request->comment;
+    $data->save();
+    return response()->json([
+        'bool'=>true
+    ]);
+}
+
     public function index()
     {
         $Posts = Post::latest()->paginate(5);

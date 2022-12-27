@@ -48,16 +48,12 @@ class LoginController extends Controller
         ]);
         if(auth()->attempt(array('email'=>$input['email'],'password'=>$input['password'])))
         {
-            if(auth()->user()->role==1)
+            if(auth()->user()->role== 0)
             {
-            return redirect()->route('admin.home');
+            return redirect()->route('/');
             }else{
-                $posts = Post::with(['comments' => function($q){
-                    $q -> select('id','post_id','comment');
-                }])->get();
                
-                return view('home',compact('posts'));
-               
+                return redirect()->route('/');
             }
 
         }else{
