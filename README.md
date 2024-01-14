@@ -1,3 +1,9 @@
+## UI-UX PDF
+https://drive.google.com/file/d/1JmpFF_sNLKez17CktgOQqukRQsV-hDMp/view?usp=drive_link
+
+## NewHome PDF
+https://drive.google.com/file/d/1HTppssDuny7upUK0cNeF5HnKbyjh4ewC/view?usp=drive_link
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
